@@ -1,0 +1,105 @@
+<?php
+ob_start();
+ini_set('display_errors', 0);
+
+include('connection/connection.php') ?>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+   <div id="wrapper">
+
+<!-- Navigation -->
+<?php include("include/nav-bar.php") ?>
+<!-- /.navbar-->
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="page-header">
+                            All Tables
+                        </h1>
+                                          <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row grid-margin">
+                    <div class="row">
+                      <div class="col-xs-11">
+                        <div class="table-responsive">
+                          <table id="order-listing" class="table" cellspacing="0" width="100%">
+                            <thead>
+                              <tr class="bg-primary text-white">
+                                        <th>Table Number</th>
+                                        <th>User Name</th>
+                                        <th>Number Of Chairs</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                                  <!-- show products in table -->
+                                   <?php
+                                    $query = "SELECT * FROM tables";
+                                    $query_Tables_show = mysqli_query($connect,$query);
+                                    while($tabel_orders =mysqli_fetch_assoc($query_Tables_show)){
+                                      $user_id = $tabel_orders['user_id'];
+                                                                    $query_name="SELECT * FROM users WHERE id ='$user_id'";
+                                        $query_get_users = mysqli_query($connect,$query_name);
+                                        $tabel_users =mysqli_fetch_assoc($query_get_users);
+                                        $user_name =$tabel_users['user_name'];
+                                      $tb_num = $tabel_orders['table_num'];
+                                      $number_of_chairs = $tabel_orders['number_of_chairs'];
+                                        echo "<tr>";
+                                        echo "<td>$tb_num</td>";
+                                        echo "<td>$user_name</td>";
+                                        echo "<td>$number_of_chairs</td>";
+                                        echo "</tr>";
+                                    }
+                                    
+                                    ?>
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+<?php include("include/footer.php") ?>

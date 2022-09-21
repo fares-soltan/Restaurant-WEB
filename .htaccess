@@ -1,0 +1,13 @@
+RewriteEngine on
+
+# Redirect to another domain: demo.doncaligroup.tk.
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^(www\.)?demo\.doncaligroup\.tk$ [NC]
+RewriteRule .* http://demo.doncaligroup.tk%{REQUEST_URI} [R=301,L]
+# Same for HTTPS:
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} !^(www\.)?demo\.doncaligroup\.tk$ [NC]
+RewriteRule .* https://demo.doncaligroup.tk%{REQUEST_URI} [R=301,L]
+
+# Custom error pages.
+ErrorDocument 500 /demo.doncaligroup.tk
